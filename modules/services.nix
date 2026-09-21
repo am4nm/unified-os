@@ -58,8 +58,8 @@
   services.sunshine = {
     enable = true;
     autoStart = true;
-    capSysAdmin = true;  # Required for KMS display capture & real-time scheduling
-    openFirewall = true; # Automatically opens streaming ports (TCP/UDP 47984-47990, 48010)
+    capSysAdmin = true;
+    openFirewall = true;
   };
 
   # 10. Grant User Permissions for Render Nodes & Virtual Inputs
@@ -67,7 +67,7 @@
 
   # 11. Enable Steam & Compatibility Layers (Proton runtime)
   programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
+  enable = true;
+  remotePlay.openFirewall = true;
   };
 }
