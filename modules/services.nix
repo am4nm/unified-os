@@ -47,14 +47,27 @@
   boot.kernelParams = [ "button.lid_init_state=open" ];
 
   # =========================================================================
+  # GRAPHICAL DISPLAY (Required for Sunshine Capture)
+  # =========================================================================
+
+  # 8. Enable KDE Plasma 6 Desktop Environment
+  services.xserver.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
+
+  # 9. Auto-login 'admin' to initialize the display server on boot
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "admin";
+  security.pam.services.login.enableKwallet = true;
+
+  # =========================================================================
   # REMOTE GAMING ADDITIONS (SUNSHINE, UINPUT & STEAM)
   # =========================================================================
 
-  # 8. Enable Kernel Modules for Virtual Gamepads (uinput)
-  # (No extra udev rules needed; systemd natively creates /dev/uinput with GROUP="input")
+  # 10. Enable Kernel Modules for Virtual Gamepads (uinput)
   boot.kernelModules = [ "uinput" ];
 
-  # 9. Sunshine Streaming Host Daemon
+  # 11. Sunshine Streaming Host Daemon
   services.sunshine = {
     enable = true;
     autoStart = true;
@@ -62,12 +75,12 @@
     openFirewall = true;
   };
 
-  # 10. Grant User Permissions for Render Nodes & Virtual Inputs
+  # 12. Grant User Permissions for Render Nodes & Virtual Inputs
   users.users.admin.extraGroups = [ "video" "input" "render" ];
 
-  # 11. Enable Steam & Compatibility Layers (Proton runtime)
+  # 13. Enable Steam & Compatibility Layers (Proton runtime)
   programs.steam = {
-  enable = true;
-  remotePlay.openFirewall = true;
+    enable = true;
+    remotePlay.openFirewall = true;
   };
 }
