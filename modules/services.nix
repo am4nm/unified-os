@@ -83,4 +83,10 @@
     enable = true;
     remotePlay.openFirewall = true;
   };
+
+  # 14. Additional Gaming Launchers (Epic, GOG, and Standalone)
+  environment.systemPackages = with pkgs; [
+    heroic
+    lutris
+  ];
 }
