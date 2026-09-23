@@ -84,9 +84,10 @@
     remotePlay.openFirewall = true;
   };
 
-  # 14. Additional Gaming Launchers (Epic, GOG, and Standalone)
+  # 14. Additional Gaming Launchers (Epic, GOG, and Standalone) & Web browser
   environment.systemPackages = with pkgs; [
     heroic
     lutris
+    firefox
   ];
 }
