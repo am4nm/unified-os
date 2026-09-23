@@ -1,10 +1,13 @@
 { config, pkgs, ... }:
 
 {
-  # 1. Container Runtime with GPU Passthrough support
+  # 1. Container Runtime & Photo Backup (Docker for Immich)
   virtualisation.docker = {
     enable = true;
-    autoPrune.enable = true;
+    autoPrune = {
+      enable = true;
+      dates = "weekly";
+    };
   };
 
   # 2. Hardware Acceleration Graphics stack (for Docker & Sunshine streaming)
@@ -65,7 +68,7 @@
   # =========================================================================
 
   # 10. Enable Kernel Modules for Virtual Gamepads (uinput)
-  boot.kernelModules = [ "uinput" ];
+  boot.kernelModules = [ "uinput" "kvm-amd" ];
 
   # 11. Sunshine Streaming Host Daemon
   services.sunshine = {
@@ -75,17 +78,44 @@
     openFirewall = true;
   };
 
-  # 12. Grant User Permissions for Render Nodes & Virtual Inputs
-  users.users.admin.extraGroups = [ "video" "input" "render" ];
-
-  # 13. Enable Steam & Compatibility Layers (Proton runtime)
+  # 12. Enable Steam & Compatibility Layers (Proton runtime)
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
   };
 
-  # 14. Additional Gaming Launchers (Epic, GOG, and Standalone) & Web browser
+  # =========================================================================
+  # ZERO-TRUST MESH NETWORK ("PRIVATE LANE" WIREGUARD)
+  # =========================================================================
+
+  # 13. Kernel-level WireGuard mesh network 
+  services.tailscale = {
+    enable = true;
+    openFirewall = true;
+  };
+
+  networking.firewall = {
+    allowedUDPPorts = [ 51820 ]; # Native WireGuard UDP Port
+  };
+
+  # =========================================================================
+  # USER PERMISSIONS & SYSTEM PACKAGES
+  # =========================================================================
+
+  # 14. Grant User Permissions for Render Nodes, Virtual Inputs & Docker
+  users.users.admin.extraGroups = [ "wheel" "docker" "video" "input" "render" "networkmanager" ];
+
+  # 15. Additional Gaming Launchers, Web browser & Container Utilities
   environment.systemPackages = with pkgs; [
+    # Container & Storage Utilities
+    docker-compose
+    wget
+    curl
+    git
+    htop
+    pciutils
+
+    # Gaming & Compatibility Launchers
     heroic
     lutris
     firefox
