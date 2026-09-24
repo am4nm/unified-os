@@ -58,6 +58,9 @@
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
+  # Disable KDE power management to prevent screen blanking on idle
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [ powerdevil ];
+
   # 9. Auto-login 'admin' to initialize the display server on boot
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "admin";
