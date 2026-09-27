@@ -117,6 +117,7 @@
     git
     htop
     pciutils
+    zrok
 
     # Gaming & Compatibility Launchers
     heroic
