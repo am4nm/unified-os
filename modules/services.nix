@@ -47,7 +47,7 @@
   systemd.targets.hybrid-sleep.enable = false;
 
   # 7. Prevent kernel-level ACPI lid sleep triggers
-  boot.kernelParams = [ "button.lid_init_state=open" ];
+  boot.kernelParams = [ "button.lid_init_state=open" "video=eDP-1:1920x1080@60D" ];
 
   # =========================================================================
   # GRAPHICAL DISPLAY (Required for Sunshine Capture)
