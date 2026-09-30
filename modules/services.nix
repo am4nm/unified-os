@@ -48,8 +48,6 @@
 
   # 7. Prevent kernel-level ACPI lid sleep triggers & EDID display configuration
   boot.kernelParams = [
-    "button.lid_init_state=open"
-    "video=eDP-1:1920x1080@60D"
     "drm.edid_firmware=HDMI-A-1:edid/1920x1080.bin"
     "video=HDMI-A-1:e"
   ];
